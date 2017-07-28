@@ -13,12 +13,11 @@ import com.salesvision2_0.fileservice.FileService.FileUploadResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.wordnik.swagger.annotations.*;
-import com.wavemaker.tools.api.core.annotations.WMAccessVisibility;
-import com.wavemaker.tools.api.core.models.AccessSpecifier;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
+import com.wavemaker.tools.api.core.annotations.WMAccessVisibility;
+import com.wavemaker.tools.api.core.models.AccessSpecifier;
 
 @RestController
 @RequestMapping(value = "/file")
@@ -27,9 +26,11 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public FileUploadResponse[] uploadFile(@RequestPart(value = "files") MultipartFile[] files, @RequestParam(value = "relativePath", required = false) String relativePath, HttpServletRequest httpServletRequest) {
-        return fileService.uploadFile(files, relativePath, httpServletRequest);
+    @RequestMapping(value = "/file", method = RequestMethod.DELETE)
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    @ApiOperation(value = "")
+    public boolean deleteFile(@RequestParam(value = "file", required = false) String file) throws IOException {
+        return fileService.deleteFile(file);
     }
 
     @RequestMapping(value = "/downloadFile", produces = "application/octet-stream", method = RequestMethod.GET)
@@ -46,17 +47,15 @@ public class FileController {
         return fileService.getDownloadFileAsInline(file, returnName);
     }
 
-    @RequestMapping(value = "/file", method = RequestMethod.DELETE)
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    @ApiOperation(value = "")
-    public boolean deleteFile(@RequestParam(value = "file", required = false) String file) throws IOException {
-        return fileService.deleteFile(file);
-    }
-
     @RequestMapping(value = "/files", method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     @ApiOperation(value = "")
     public WMFile[] listFiles(HttpServletRequest httpServletRequest) throws IOException {
         return fileService.listFiles(httpServletRequest);
+    }
+
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST, consumes = "multipart/form-data")
+    public FileUploadResponse[] uploadFile(@RequestPart(value = "files") MultipartFile[] files, @RequestParam(value = "relativePath", required = false) String relativePath, HttpServletRequest httpServletRequest) {
+        return fileService.uploadFile(files, relativePath, httpServletRequest);
     }
 }
