@@ -256,6 +256,17 @@
     "pageName" : "Page24",
     "pageTransitions" : "none"
   },
+  "goToPage_sdfsd" : {
+    "_id" : "wm-goToPage_sdfsd-wm.NavigationVariable-1501235389553",
+    "name" : "goToPage_sdfsd",
+    "owner" : "App",
+    "category" : "wm.NavigationVariable",
+    "dataBinding" : [ ],
+    "operation" : "gotoPage",
+    "pageName" : "sdfsd",
+    "dataSet" : [ ],
+    "pageTransitions" : "none"
+  },
   "HrdbDepartmentData" : {
     "_id" : "wm-HrdbDepartmentData-wm.LiveVariable1428657952464",
     "name" : "HrdbDepartmentData",
