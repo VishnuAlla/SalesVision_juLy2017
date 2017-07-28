@@ -1,5 +1,5 @@
 var _WM_APP_PROPERTIES = {
-  "activeTheme" : "retro",
+  "activeTheme" : "vermillion",
   "defaultLanguage" : "en",
   "displayName" : "SalesVision_juLy2017",
   "homePage" : "Main",
